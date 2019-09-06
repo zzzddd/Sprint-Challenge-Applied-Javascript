@@ -28,7 +28,7 @@ function Header() {
 
   return header;
 }
-// console.log(Header())
-// console.log(entryPoint);
+console.log(Header())
+console.log(entryPoint);
 
 entryPoint.appendChild(Header());

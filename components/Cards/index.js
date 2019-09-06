@@ -6,26 +6,31 @@
 // This won't be as easy as just iterating over an array though.
 // Create a function that will programmatically create the following DOM component:
 //
-// <div class="card">
-//   <div class="headline">{Headline of article}</div>
-//   <div class="author">
-//     <div class="img-container">
-//       <img src={url of authors image} />
-//     </div>
-//     <span>By {authors name}</span>
-//   </div>
-// </div>
-//
-// Create a card for each of the articles and add the card to the DOM.
+{/* <div class="card">
+  <div class="headline">{Headline of article}</div>
+  <div class="author">
+    <div class="img-container">
+      <img src={url of authors image} />
+    </div>
+    <span>By {authors name}</span>
+  </div>
+</div>
+
+Create a card for each of the articles and add the card to the DOM. */}
 
 axios
   .get("https://lambda-times-backend.herokuapp.com/articles")
   .then(response => {
      console.log(response.data);
-  let x = response.data;
+  let x = response.data.articles;
+  for(var value in x){
+    x[value].forEach(art =>{
+    document.querySelector('.cards-container').appendChild(createCard(art));
+    });
+  }
   
     
-    cotainer.appendChild(createCard(response.data));
+    // cotainer.appendChild(createCard(response.data));
   })
   .catch(error => {
     console.log("The data was not returned", error);
@@ -33,7 +38,7 @@ axios
 
 
 
-const cotainer = document.querySelector(".carousel-container");
+// const cotainer = document.querySelector(".carousel-container");
 
 function createCard(data) {
   const card = document.createElement("div"),
@@ -48,25 +53,21 @@ function createCard(data) {
    author.classList.add('author')
    imgdiv.classList.add("img-container")
 
+
+        headLine.textContent = data.headline;
+        img.src = data.authorPhoto;
+        span.textContent = `By ${data.authorName}`;
+
    card.appendChild(headLine)
    card.appendChild(author)
    author.appendChild(imgdiv)
    imgdiv.appendChild(img)
    author.appendChild(span)
 
-    data.forEach(item => {
-        headLine.textContent = item.articles;
-        img.src = item.articles;
-        span.textContent = item.articles;
-       });
-  
-  
-
-    console.log(data.articles.bootstrap);
-
-return card
+return card;
 
 }
+
 
 // console.log(cotainer)
 

@@ -7,41 +7,24 @@
 //
 //  The tab component should look like this:
 //    <div class="tab">topic here</div>
-entryDiv=document.querySelector('.topics')
-function topic(){
-    const topicsDiv=document.createElement('div')
-    topicsDiv.classList.add('tab')
-
-    // topicsDiv.textContent
-
-
-    // console.log(x[3])
-    return topicsDiv
-}
-// entryDiv.appendChild(topic());
-console.log(entryDiv);
-
-
+const entryDiv = document.querySelector(".topics");
 axios
   .get("https://lambda-times-backend.herokuapp.com/topics")
   .then(response => {
-    // console.log(response.data.topics);
+    console.log(response.data.topics);
     let x = response.data.topics;
-    x.forEach(item => {
-        const newTopic = topic(item);
-        entryDiv.appendChild(newTopic);
-        let b=entryDiv.querySelectorAll('.tab')
-        
-        //  console.log(b);
-      
-     });
-      //  const tab = Document.querySelectorAll(".tab");
-      //  console.log(tab);
-       
+    console.log(x);
+    x.forEach(elem => {
+      entryDiv.appendChild(topic(elem));
+    });
   })
   .catch(error => {
     console.log("The data was not returned", error);
   });
-// 
+function topic(top) {
+  const menu = document.createElement("div");
+  menu.classList.add("tab");
+  menu.textContent = top;
 
-// console.log(x)
+  return menu;
+}
